@@ -6,6 +6,7 @@ import Material exposing (lift, lift')
 import Effects exposing (Effects, Never)
 import Models exposing (Model)
 import Material.Layout as Layout
+import Player.Player as Player
 
 
 update : Action -> Model -> ( Model, Effects Action )
@@ -23,3 +24,14 @@ update action model =
           { model | routing = updatedRouting }
       in
         ( updatedModel, Effects.map RoutingAction fx )
+
+    PlayerAction subAction ->
+      let
+        ( updatedPlayer, fx ) =
+          Player.update subAction model.player
+      in
+        ( { model
+            | player = updatedPlayer
+          }
+        , Effects.map PlayerAction fx
+        )

@@ -8,6 +8,7 @@ import StartApp
 import Routing
 import View exposing (..)
 import Material.Layout as Layout exposing (defaultLayoutModel)
+import Player.Player as Player
 
 
 -- App Imports
@@ -22,15 +23,17 @@ import Models exposing (Model)
 
 initialModel : Model
 initialModel =
-  { layout = layoutModel
+  { layout = (layoutModel 3)
   , routing = Routing.initialModel
+  , player = Player.initialModel
+  , tabLength = 2
   }
 
 
-layoutModel : Layout.Model
-layoutModel =
+layoutModel : Int -> Layout.Model
+layoutModel length =
   { defaultLayoutModel
-    | state = Layout.initState (List.length tabs)
+    | state = Layout.initState (length)
   }
 
 
